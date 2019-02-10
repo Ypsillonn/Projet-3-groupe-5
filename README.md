@@ -128,7 +128,7 @@ On peut enregistrer ce fichier et ouvrir le fichier "named.conf.options" :
 
     nano /etc/bind/named.conf.options
     
-If faut ensuite rajouter la ligne suivante :
+Il faut ensuite rajouter la ligne suivante :
 
     allow-transfer { 192.168.10.6; };
     
@@ -160,7 +160,7 @@ Maintenant que le fichier et complet, il faut l'enregistrer et créer le fichier
 
     nano /etc/bind/db.10.10.168.192
     
-Et comme pour notre fichier de zone directe, i faut y renseigner la configuration suivante : 
+Et comme pour notre fichier de zone directe, il faut y renseigner la configuration suivante : 
 
     ;
     ; BIND reverse data file for 192.168.10.10 net
