@@ -47,7 +47,7 @@ then
 	echo "" | mail -s "Erreur lors du ping de la résolution DNS." -A $DNS_LOG -- anthony
 elif [ "$(head -n 1 $DNS_LOG)" = ";; connection timed out; no servers could be reached" ]
 then
-	etatdns="Innaccessible"
+	etatdns="Inaccessible"
 	pingsite="-"
 	echo "" | mail -s "Erreur lors du ping de la résolution DNS." -A $DNS_LOG -- anthony
 else
@@ -64,7 +64,7 @@ then
 	echo "" | mail -s "Erreur lors du ping de la résolution DNS." -A $DNS_LOG2 -- anthony 
 elif [ "$(head -n 1 $DNS_LOG2)" = ";; connection timed out; no servers could be reached" ]
 then
-        etatdns2="Innaccessible"
+        etatdns2="Inaccessible"
 	pingsite2="-"
 	echo "" | mail -s "Erreur lors du ping de la résolution DNS." -A $DNS_LOG2 -- anthony
 else
