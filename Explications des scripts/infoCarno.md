@@ -8,8 +8,8 @@
 
 		#!/bin/bash
 
-Ici on début le script en indiquant le programme avec lequel interpréter le script, ici le shell bash.
-|
+Ici on débute le script en indiquant le programme avec lequel interpréter le script, ici le shell bash.
+
 
 		PING_LOG=/home/anthony/Scriptdir/ping_log
 		DNS_LOG=/home/anthony/Scriptdir/dns_log
@@ -19,7 +19,7 @@ Ici on début le script en indiquant le programme avec lequel interpréter le sc
 		CSV=/home/anthony/Scriptdir/esclave.csv
 
 On définit des variables correspondants aux chemins d'accés des différents fichiers nécessaires, pour ne pas avoir à les réécrire à chaque fois.
-|
+
 
 		{ time wget -pq --no-cache --delete-after www.carnofluxe.local ; } 2> $PING_SITE
 
@@ -30,7 +30,7 @@ On définit des variables correspondants aux chemins d'accés des différents fi
 		pingsite2=$(head -n 2 $PING_SITE2 | tail -n 1 | cut -c 6-15 | tr ',' '.')
 
 On récupère le temps de réponse de la page d'acceuil des 2 sites et on les attribue aux variables pingsite et pingsite2, respectivement le site de ecommerce et celui de supervision. On redire également les erreurs potentielles vers des fichiers, pour que l'administateur puisse les voir.
-|
+
 		
 		pinghttp=$(ping -c 5 192.168.10.10 | tee $PING_LOG | tail -n 1 | cut -d '/' -f 5)
 		
@@ -57,7 +57,7 @@ On récupère le temps de réponse de la page d'acceuil des 2 sites et on les at
 -Si aucune latence moyenne n'est trouvée c'est que le serveur est inaccessible; dans ce cas on remplace la moyenne de la latence par un tiret, de même pour le temps de réponse des pages d'accueil., et on inscrit "Non-fonctionnel" dans la variable etatsite. Enfin on envoie un e-mail à l'administrateur avec en fichier joint le fichier contenant l'intégralité de la sortie de la commande.
 -Si une latence moyenne est trouvée, mais si il y a également un pourcentage de paquets perdus supérieurs à 0%, on rajoute ms (pour milli seconde) à la fin de la variable pinghttp; on envoie également le fichier à l'administrateur par e-mail, et on attribue "Partiellement fonctionnel" à la variable etatsite.
 -Enfin si aucune erreur n'a eu lieu, on ajoute là aussi ms à la variable pinghttp, et on attribue "Fonctionnel" à la variable etatsite?
-|
+
 
 		echo "$(nslookup www.carnofluxe.local)" > $DNS_LOG
 		
@@ -79,7 +79,7 @@ On récupère le temps de réponse de la page d'acceuil des 2 sites et on les at
 -Si la sortie de la commande contient "** server can't find www.carnofluxe.local: NXDOMAIN", on attribue "Non-fonctionnel" à la variable etatdns, on attribue un tiret à la variable pingsite, et on envoie le fichier à l'adminsitrateur par e-mail.
 -Si la sortie de la commande contient ";; connection timed out; no servers could be reached", on attribue "Inaccessible" à la variable etatdns, on attribue un tiret à la variable pingsite, et on envoie le fichier à l'adminsitrateur par e-mail.
 -Sinon, on attribue simplement "Fonctionnel" à la variable etatdns.
-|
+
 
 		echo "$(nslookup supervision.carnofluxe.local)" > $DNS_LOG2
 
@@ -98,12 +98,12 @@ On récupère le temps de réponse de la page d'acceuil des 2 sites et on les at
 		fi
 
 Ce bloc est très semblable au précédent dans la mesure ou seuls l'url du site (supervision.carnofluxe.local) et les variable (etatdsn2 et pingsite2) changent.
-|
+
 		echo "www.carnofluxe.local,$etatdns,$pinghttp,$etatsite,$pingsite\n" > $CSV
 		echo "supervision.carnofluxe.local,$etatdns2,$pinghttp,$etatsite,$pingsite2" >> $CSV
 
 On écrit dans le fichier CSV les contenus des variables.
-|
+
 		if [ "$pinghttp" != "-" ]
 
 		then
