@@ -71,7 +71,7 @@ else
         etatdns2="Fonctionnel"
 fi
 
-echo "www.carnofluxe.local,$etatdns,$pinghttp,$etatsite,$pingsite\n" > $CSV
+echo "www.carnofluxe.local,$etatdns,$pinghttp,$etatsite,$pingsite\n" >> $CSV
 echo "supervision.carnofluxe.local,$etatdns2,$pinghttp,$etatsite,$pingsite2" >> $CSV
 
 if [ "$pinghttp" != "-" ]
