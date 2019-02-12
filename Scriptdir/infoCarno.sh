@@ -7,8 +7,6 @@ PING_SITE=/home/anthony/Scriptdir/ping_site
 PING_SITE2=/home/anthony/Scriptdir/ping_site2
 CSV=/home/anthony/Scriptdir/esclave.csv
 
-echo "" > $CSV
-
 pinghttp=$(ping -c 5 192.168.10.10 | tee $PING_LOG | tail -n 1 | cut -d '/' -f 5)
 
 pinghttptmp=$(<$PING_LOG)
@@ -73,7 +71,7 @@ else
         etatdns2="Fonctionnel"
 fi
 
-echo "www.carnofluxe.local,$etatdns,$pinghttp,$etatsite,$pingsite\n" >> $CSV
+echo "www.carnofluxe.local,$etatdns,$pinghttp,$etatsite,$pingsite\n" > $CSV
 echo "supervision.carnofluxe.local,$etatdns2,$pinghttp,$etatsite,$pingsite2" >> $CSV
 
 if [ "$pinghttp" != "-" ]
