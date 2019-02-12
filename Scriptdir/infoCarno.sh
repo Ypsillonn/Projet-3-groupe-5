@@ -1,12 +1,12 @@
 #!/bin/bash
 
-PING_LOG=/home/albos/Scriptdir/ping_log
-DNS_LOG=/home/albos/Scriptdir/dns_log
-DNS_LOG2=/home/albos/Scriptdir/dns_log2
-PING_SITE=/home/albos/Scriptdir/ping_site
-PING_SITE2=/home/albos/Scriptdir/ping_site2
-CSV=/home/albos/Scriptdir/esclave.csv
-
+PING_LOG=/home/anthony/Scriptdir/ping_log
+DNS_LOG=/home/anthony/Scriptdir/dns_log
+DNS_LOG2=/home/anthony/Scriptdir/dns_log2
+PING_SITE=/home/anthony/Scriptdir/ping_site
+PING_SITE2=/home/anthony/Scriptdir/ping_site2
+CSV=/home/anthony/Scriptdir/esclave.csv
+echo "" > $CSV
 pinghttp=$(ping -c 5 192.168.10.10 | tee $PING_LOG | tail -n 1 | cut -d '/' -f 5)
 
 pinghttptmp=$(<$PING_LOG)
@@ -27,10 +27,12 @@ then
 	etatsite="Non-fonctionnel"
 	pingsite="-"
 	pingsite2="-"
+	echo "" | mail -s "Erreur lors du ping du serveur HTTP." -A $PING_LOG -- anthony
 elif [ "$(echo $pinghttptmp | head -n 9 | tail -n 1 | cut -d ',' -f 3)" != " 0% packet loss" ]
 then
 	etatsite="Partiellement fonctionnel"
 	pinghttp=$pinghttp"ms"
+	echo "" | mail -s "Erreur lors du ping du serveur HTTP." -A $PING_LOG -- anthony
 else
 	etatsite="Fonctionnel"
 	pinghttp=$pinghttp"ms"
@@ -42,10 +44,12 @@ if [ "$(tail -n 1 $DNS_LOG)" = "** server can't find www.carnofluxe.local: NXDOM
 then
 	etatdns="Non-fonctionnel"
 	pingsite="-"
+	echo "" | mail -s "Erreur lors du ping de la résolution DNS." -A $DNS_LOG -- anthony
 elif [ "$(head -n 1 $DNS_LOG)" = ";; connection timed out; no servers could be reached" ]
 then
 	etatdns="Innaccessible"
 	pingsite="-"
+	echo "" | mail -s "Erreur lors du ping de la résolution DNS." -A $DNS_LOG -- anthony
 else
 	etatdns="Fonctionnel"
 
@@ -57,14 +61,23 @@ if [ "$(tail -n 1 $DNS_LOG2)" = "** server can't find supervision.carnofluxe.loc
 then
         etatdns2="Non-fonctionnel"
 	pingsite2="-"
+	echo "" | mail -s "Erreur lors du ping de la résolution DNS." -A $DNS_LOG2 -- anthony 
 elif [ "$(head -n 1 $DNS_LOG2)" = ";; connection timed out; no servers could be reached" ]
 then
         etatdns2="Innaccessible"
 	pingsite2="-"
+	echo "" | mail -s "Erreur lors du ping de la résolution DNS." -A $DNS_LOG2 -- anthony
 else
         etatdns2="Fonctionnel"
 fi
 
-printf "Site,Etat résolution DNS,Ping du serveur,Accessibilité du site,Temps de réponse de la page d'accueil\n" > $CSV
-printf "www.carnofluxe.local,$etatdns,$pinghttp,$etatsite,$pingsite\n" >> $CSV
-printf "supervision.carnofluxe.local,$etatdns2,$pinghttp,$etatsite,$pingsite2" >> $CSV
+echo "www.carnofluxe.local,$etatdns,$pinghttp,$etatsite,$pingsite\n" > $CSV
+echo "supervision.carnofluxe.local,$etatdns2,$pinghttp,$etatsite,$pingsite2" >> $CSV
+
+if [ "$pinghttp" != "-" ]
+
+then
+	scp -o ConnectTimeout=30 $CSV anthony@192.168.10.10:/home/anthony/Scriptdir ;
+else
+	echo "Le serveur HTTP n'étant pas accessible le fichier CSV n'a pas été transféré." | mail -s "Connection SSH impossible." anthony
+fi
