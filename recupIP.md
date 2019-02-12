@@ -1,5 +1,8 @@
 # Explication du script recupIP.sh
 
+Script permettant la récupération des IPs dans le fichier log d'Apache2 et sera executé toute les heures via crontab depuis le serveur
+HTTP
+
 ### Les variables
 
 	FICHIER_LOG=/var/log/apache2/other_vhosts_access.log
