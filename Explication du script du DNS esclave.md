@@ -116,4 +116,4 @@ Si le serveur http n'était pas accessible, on envoie un mail à l'administarteu
 
 
 ### Ce script sera exécuté toutes les heures sur le serveur du DNS esclave via la commande : 
-### crontab O * * * * /chemin/du/script.sh
+### crontab 0 * * * * /chemin/du/script.sh
