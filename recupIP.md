@@ -11,7 +11,7 @@ il est à noté qu'il nous permet de créer le fichier 'leslogs.csv' (dans le ca
 et que l'on rajoute un nouveau nom de fichier à la fin cela va créer un fichier de ce nom dès lors que l'on auras utilisé 
 le chemin pour ecrire dans le fichier.).
 
-### La recherche des IP et des dates de connexion.
+### La recherche des IP et des dates de connexion
 
 	grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} "
         grep -oP "\d{2}\/.+\:\d{2} "
@@ -44,7 +44,7 @@ sert à le faire tant qu'il reste des lignes. une fois ses lignes lue on les aff
 pour nos commandes 'grep' précédement citées et donc y récupérer les IP et Dates puis grâce à 'echo "$IP;$DATE" >> $FICHIER_RECUP' on les
 ecrit dans le chemin contenue dans 'FICHIER_RECUP' sois dans le fichier leslogs.csv qui est donc créer.
 
-### Suppression du fichier de log.
+### Suppression du fichier de log
 
 	echo  "" > $FICHIER_LOG
 
