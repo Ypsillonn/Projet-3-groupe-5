@@ -1,4 +1,7 @@
 # Hello les amis
-		nano bonjour.sh
+
+Vous etes beaux :
+
+	nano bonjour.sh
 
 Enchantier
