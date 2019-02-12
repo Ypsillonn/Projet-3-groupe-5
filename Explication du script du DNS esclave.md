@@ -113,3 +113,6 @@ On écrit dans le fichier CSV les contenus des variables.
 		fi
 
 Si le serveur http n'était pas accessible, on envoie un mail à l'administarteur pour lui indiquer que le transfert SSH n'a pas pu être effectué. Sinon on tranfert le fichier CSV par SSH au serveur HTTP.
+
+
+### Ce script sera exécuté toutes les heures sur le serveur du DNS esclave via la commande : crontab O * * * * /chemin/du/script.sh
