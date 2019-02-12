@@ -99,13 +99,13 @@ On pose une condition concernant l'accessibbilité aux scripts, si on y à accè
 - On y inclue les données située dans le fichier esclave.csv qui contient les données de connexions aux sites;
 - On ferme le tableau et on affiche dans la console que l'écriture du site à été effectué.
 
-    else
+        else
 
-            echo "Fichiers .csv introuvables"
-            $MON_FICIER1 2>> $ERREUR
-            $MON_FICHIER2 2>> $ERREUR
-            echo $RECUP >> $MON_SITE
-    fi
+                echo "Fichiers .csv introuvables"
+                $MON_FICIER1 2>> $ERREUR
+                $MON_FICHIER2 2>> $ERREUR
+                echo $RECUP >> $MON_SITE
+        fi
 Sinon, si l'on a pas les fichiers .csv :
 - On dit à l'utilisateur que ceux-ci sont introuvables;
 - On redirige le message d'erreur entier de l'accès au fichier leslogs.csv et celui de esclave.csv
