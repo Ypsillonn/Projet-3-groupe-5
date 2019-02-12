@@ -14,7 +14,7 @@ le chemin pour ecrire dans le fichier.).
 ### La recherche des IP et des dates de connexion
 
 	grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} "
-        grep -oP "\d{2}\/.+\:\d{2} "
+	grep -oP "\d{2}\/.+\:\d{2} "
 	
 La commande 'grep' est une commande permettant de chercher, dans un fichier ou autre chose (ex: ligne, fichier, etc...), 
 un argument contenu dans ces derniers. Ici couplé à une option -oP nous permet d'une part (par l'option -o) de se focaliser sur les
